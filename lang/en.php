@@ -131,5 +131,7 @@ return [
         'es' => 'Spanish',
         'fr' => 'French',
         'de' => 'German',
+        'zh-cn' => 'Chinese(Simplified)',
+        'zh-tw' => 'Chinese(Traditional)',
     ],
 ];

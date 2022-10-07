@@ -203,7 +203,7 @@ html, body, #gjs {
 }
 .gjs-pn-devices-c {
   top: 3px;
-  right: calc(100% - #{$sidebar-width} + 5px);
+  left: -0.6rem;
   z-index: 100;
   background: #000;
   .gjs-field {

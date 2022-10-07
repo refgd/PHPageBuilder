@@ -138,8 +138,7 @@ window.editor.on('selector:add', selector => {
 
         if (name.substr(0,2) === 'ID') {
 			selector.set({
-				// Can't be seen by the style manager, therefore even by the user
-				private: true,
+				'protected': true,
 			})
       	}
 });
