@@ -133,12 +133,22 @@ window.editor.on('load', function(editor) {
 });
 window.editor.I18n.addMessages(window.grapesJSTranslations);
 
+window.editor.on('selector:add', selector => {
+		const name = selector.get('name');
+
+        if (name.substr(0,2) === 'ID') {
+			selector.set({
+				// Can't be seen by the style manager, therefore even by the user
+				private: true,
+			})
+      	}
+});
 
 window.editor.on('run:open-sm', function(editor) {
     $(".gjs-layer").parent().css('display', 'none');
     $(".gjs-sm-sectors").parent().parent().css('display', 'block');
     // move element classes editor to advanced section
-    $(".gjs-sm-sector__advanced .gjs-sm-properties").append($(".gjs-clm-tags"));
+    // $(".gjs-sm-sector__advanced .gjs-sm-properties").append($(".gjs-clm-tags"));
 });
 window.editor.on('run:open-layers', function(editor) {
     const layers = window.editor.Layers;

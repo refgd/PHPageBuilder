@@ -85,11 +85,11 @@ html, body, #gjs {
     justify-content: center;
   }
 }
-.gjs-pn-commands,
-.gjs-pn-options,
-.gjs-pn-devices-c {
-  display: none;
-}
+// .gjs-pn-commands,
+// .gjs-pn-options,
+// .gjs-pn-devices-c {
+//   display: none;
+// }
 .gjs-devices-c {
   padding: 0;
 }
@@ -198,9 +198,17 @@ html, body, #gjs {
     border-bottom: 2px solid rgba(0, 0, 0, 0.10);
   }
 }
-.gjs-cv-canvas,
-.gjs-pn-devices-c {
+.gjs-cv-canvas {
   left: $sidebar-width;
+}
+.gjs-pn-devices-c {
+  top: 3px;
+  right: calc(100% - #{$sidebar-width} + 5px);
+  z-index: 100;
+  background: #000;
+  .gjs-field {
+    background-color: #3c3636;
+  }
 }
 .gjs-pn-panel {
   #gjs-sm-caret {
