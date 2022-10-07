@@ -247,10 +247,11 @@ $(document).ready(function() {
     window.getComponentDataInStorageFormat = function(component) {
         // clone component's parent, enabling us to temporarily remove all component's siblings without updating the pagebuilder
         let container = window.cloneComponent(component.parent());
+        let cloneComponent = window.cloneComponent(component);
 
         // remove all component's siblings since we only want to return the given component in storage format
         container.get('components').reset();
-        container.append(component);
+        container.append(cloneComponent);
 
         return getContainerContentInStorageFormat(container);
     };

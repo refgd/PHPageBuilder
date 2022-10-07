@@ -48,6 +48,7 @@ return [
         'default-category' => 'General',
         'view-blocks' => 'Blocks',
         'view-settings' => 'Settings',
+        'view-layers' => 'Layers',
         'view-style-manager' => 'Style Manager',
         'save-page' => 'Save',
         'view-page' => 'View',

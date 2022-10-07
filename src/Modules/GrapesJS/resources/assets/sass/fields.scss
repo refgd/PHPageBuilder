@@ -1,5 +1,5 @@
 .gjs-field {
-  background-color: #d2f4ff;
+  background-color: #000;
 }
 .gjs-field select {
   option {
@@ -8,18 +8,18 @@
   }
 }
 .gjs-sm-field select.gjs-input-unit {
-  color: rgb(0, 135, 179);
+  color: #ddd;
 
   option {
-    background-color: #16b8ec;
+    background-color: #000;
     color: #fff;
   }
 }
 .gjs-field-arrow-d {
-  border-top: 4px solid rgb(0, 135, 179);
+  border-top: 4px solid #ddd;
 }
 .gjs-field-arrow-u {
-  border-bottom: 4px solid rgb(0, 135, 179);
+  border-bottom: 4px solid #ddd;
 }
 
 .gjs-radio-item .gjs-radio-item-label {

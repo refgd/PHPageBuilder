@@ -170,12 +170,14 @@
      */
     window.editor.on('component:selected', function(component) {
         // if the component has settings, activate settings panel in pagebuilder sidebar
-        if (componentHasBlockSettings(component)) {
-            $(".gjs-pn-buttons .gjs-pn-btn:nth-of-type(2)").click();
-        }
-        else if (component.get('type') === '' && componentHasBackground(component)) {
+        // if (componentHasBlockSettings(component)) {
+        //     $(".gjs-pn-buttons .gjs-pn-btn:nth-of-type(2)").click();
+        // }
+        // else 
+        // $(".gjs-pn-buttons .gjs-pn-btn:nth-of-type(3)").click();
+
+        if (component.get('type') === '' && componentHasBackground(component)) {
             // on selecting a default component without settings, with editable background, show background styling
-            $(".gjs-pn-buttons .gjs-pn-btn:nth-of-type(3)").click();
             if ($("#gjs-sm-position").hasClass("gjs-sm-open")) {
                 $("#gjs-sm-position").find(".gjs-sm-title").click();
             }
@@ -425,12 +427,15 @@
         component.attributes['is-updating'] = true;
         let settings = window.blockSettings[component.attributes['block-slug']];
         settings.forEach(function(setting) {
-            let trait = component.addTrait(setting);
-            if (settingValues[setting['name']] !== undefined) {
-                trait.setTargetValue(settingValues[setting['name']]);
-            } else if (setting['default-value'] !== undefined) {
-                trait.setTargetValue(setting['default-value']);
-            }
+            let traits = component.addTrait(setting);
+            if(!$.isArray(traits)) traits = [traits];
+            traits.forEach(function (trait){
+                if (settingValues[setting['name']] !== undefined) {
+                    trait.setTargetValue(settingValues[setting['name']]);
+                } else if (setting['default-value'] !== undefined) {
+                    trait.setTargetValue(setting['default-value']);
+                }
+            });
         });
         component.attributes['is-updating'] = false;
     }
@@ -498,7 +503,7 @@
                 component.replaceWith(blockHtml);
                 replacePlaceholdersForRenderedBlocks(container);
                 applyBlockAttributesToComponents(container);
-                restrictEditAccess(container, false, false);
+                restrictEditAccess(container);
 
                 // run builder scripts of the replaced component and all its children
                 let replacedComponent = findChildViaBlockIdsPath(container, [blockId]);
@@ -613,7 +618,7 @@
     function restrictEditAccess(component, directlyInsideDynamicBlock = false, allowEditableComponents = true) {
         disableAllEditFunctionality(component);
 
-        if (component.attributes.attributes['phpb-content-container'] !== undefined) {
+        if (component.attributes.attributes['phpb-content-container'] !== undefined || component.attributes.attributes['phpb-blocks-container'] !== undefined) {
             // the content container of the current page can receive other components
             component.set({
                 droppable: true,
@@ -742,6 +747,14 @@
             settings.selectable = true;
             settings.stylable = true;
             settings.removable = true;
+        }
+        if ('phpb-blocks-container' in component.attributes.attributes) {
+            settings.hoverable = true;
+            settings.selectable = true;
+            settings.stylable = true;
+            settings.removable = true;
+            settings.draggable = true;
+            settings.copyable = true;
         }
 
         if (! $.isEmptyObject(settings)) {

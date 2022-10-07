@@ -29,7 +29,7 @@
 .gjs-sm-sectors {
   .gjs-four-color,
   .gjs-color-warn {
-    color: #000;
+    color: #3b97e3;
   }
 
   .gjs-sm-field.gjs-sm-composite {
@@ -45,22 +45,22 @@
     }
 
     .gjs-field select {
-      color: #000;
+      color: #fff;
       background: #0087b33d;
     }
   }
 
   .gjs-sm-properties {
     .gjs-sm-field input {
-      color: #000;
+      color: #fff;
     }
   }
 
   .gjs-sm-stack #gjs-sm-add {
-    color: #333;
+    color: #ddd;
 
     &:hover {
-      color: #000;
+      color: #fff;
     }
   }
 }

@@ -181,7 +181,7 @@ class PageRenderer
         $renderer = $this;
         $page = $this->page;
         if ($this->forPageBuilder) {
-            $body = '<div phpb-content-container="true"></div>';
+            $body = '<div class="rootLayer" phpb-content-container="true"></div>';
         } else {
             $body = $this->renderBody();
         }

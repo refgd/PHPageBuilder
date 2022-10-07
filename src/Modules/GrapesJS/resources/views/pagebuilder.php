@@ -80,13 +80,75 @@ window.grapesJSTranslations = {
         }
     }
 };
+config.layerManager.onRender = function ({ component, el }){
+    if(component.attributes.selectable){
+        $(el).removeClass('gjs-hidden');
+    }
+
+    if ('phpb-blocks-container' in component.attributes.attributes || 'phpb-content-container' in component.attributes.attributes) {
+        $(el).removeClass('gjs-hidden').addClass('hasChild');
+    }else{
+        $(el).removeClass('hasChild');
+    }
+};
 
 window.grapesJSLoaded = false;
 window.editor = window.grapesjs.init(config);
 window.editor.on('load', function(editor) {
+    var pn = editor.Panels;
+
+    // Load and show settings and style manager
+    var openTmBtn = pn.getButton('views', 'open-settings-button');
+        openTmBtn && openTmBtn.set('active', 1);
+    var openSm = pn.getButton('views', 'open-style-button');
+        openSm && openSm.set('active', 1);
+
+    // Remove trait view
+    pn.removeButton('views', 'open-settings-button');
+    $(".gjs-trt-traits").parent().parent().css('display', 'none');
+
+    // Add Settings Sector
+    var traitsSector = $('<div class="gjs-sm-sector no-select gjs-sm-open">'+
+          '<div class="gjs-sm-sector-title" data-sector-title=""><div class="gjs-sm-sector-caret"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M7,10L12,15L17,10H7Z"></path></svg></div><div class="gjs-sm-sector-label">Settings</div></div>' +
+          '<div class="gjs-sm-properties"></div></div>');
+    var traitsProps = traitsSector.find('.gjs-sm-properties');
+    traitsProps.append($('.gjs-trt-traits').css('width', '100%'));
+    traitsSector.insertBefore($('.gjs-sm-sectors'));
+    // $('.gjs-sm-sectors').before(traitsSector);
+    traitsSector.find('.gjs-sm-sector-title').on('click', function(){
+        var traitStyle = traitsProps.get(0).style;
+        var hidden = traitStyle.display == 'none';
+        if (hidden) {
+            traitStyle.display = 'block';
+            $(this).parent().addClass('gjs-sm-open');
+        } else {
+            traitStyle.display = 'none';
+            $(this).parent().removeClass('gjs-sm-open');
+        }
+    });
+
+    
+
     window.grapesJSLoaded = true;
 });
 window.editor.I18n.addMessages(window.grapesJSTranslations);
+
+
+window.editor.on('run:open-sm', function(editor) {
+    $(".gjs-layer").parent().css('display', 'none');
+    $(".gjs-sm-sectors").parent().parent().css('display', 'block');
+    // move element classes editor to advanced section
+    $(".gjs-sm-sector__advanced .gjs-sm-properties").append($(".gjs-clm-tags"));
+});
+window.editor.on('run:open-layers', function(editor) {
+    const layers = window.editor.Layers;
+    layers.setRoot(window.editor.getWrapper().find(".rootLayer")[0]);
+
+    $(".gjs-sm-sectors").parent().parent().css('display', 'none');
+    $(".gjs-layer").parent().css('display', 'block');
+
+    // $(".gjs-trt-traits").parent().parent().css('display', 'block');
+});
 
 // load the default or earlier saved page css components
 editor.setStyle(window.initialStyle);

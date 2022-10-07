@@ -40,6 +40,10 @@ div[data-gjs-type].gjs-comp-selected {
   border: 2px dashed #3b97e3;
 }
 
+[phpb-content-container] {
+  min-height: 100%;
+}
+
 html,
 body {
   ::-webkit-scrollbar {

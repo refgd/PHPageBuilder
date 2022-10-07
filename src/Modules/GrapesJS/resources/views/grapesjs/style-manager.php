@@ -1,11 +1,11 @@
 <script type="text/javascript">
 
-let styleManager = editor.StyleManager;
+let styleManager = window.editor.StyleManager;
 
 styleManager.addSector('advanced',{
     name: '<?= phpb_trans('pagebuilder.style-manager.sectors.advanced') ?>',
     open: false,
-    properties: []
+    properties: ['opacity', 'transition', 'transform']
 }, { at: 10 });
 
 <?php
